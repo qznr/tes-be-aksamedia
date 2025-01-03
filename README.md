@@ -1,66 +1,414 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Tes Backend Developer - PT Aksamedia Mulia Digital
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Repositori ini berisi kode sumber untuk tes masuk magang Backend Developer di PT Aksamedia Mulia Digital. Tes ini bertujuan untuk mengevaluasi pemahaman dan kemampuan kandidat dalam membuat API, memahami SQL, dan menyelesaikan masalah menggunakan logika pemrograman.
 
-## About Laravel
+## Persyaratan
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   Laravel (versi terbaru)
+-   MySQL / MariaDB
+-   PHPMyAdmin / Adminer / HeidiSQL (atau database client lainnya)
+-   Postman (atau API client lainnya)
+-   PHP >= 8.1
+-   Composer
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Instalasi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Clone Repositori**
 
-## Learning Laravel
+    ```bash
+    git clone <repository-url>
+    cd tes-be-aksamedia
+    ```
+2. **Install Dependencies**
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    ```bash
+    composer install
+    ```
+3. **Konfigurasi Environment**
+    -   Salin file `.env.example` menjadi `.env`
+    -   Sesuaikan konfigurasi database pada file `.env`
+    -   Generate application key:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    ```bash
+    php artisan key:generate
+    ```
+4. **Migrasi Database dan Seeding**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    ```bash
+    php artisan migrate --seed
+    ```
+5. **Jalankan Server**
 
-## Laravel Sponsors
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi akan berjalan di `http://localhost:8000`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Tugas
 
-### Premium Partners
+Berikut adalah daftar tugas yang harus diselesaikan:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Tugas 1: API Login
 
-## Contributing
+-   **Endpoint:** `/api/login`
+-   **Method:** `POST`
+-   **Deskripsi:** Membuat API untuk autentikasi pengguna.
+-   **Kriteria:**
+    -   Endpoint hanya dapat diakses tanpa autentikasi.
+    -   Jika sudah login, request ditolak.
+-   **Request (JSON):**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```json
+    {
+        "username": "admin",
+        "password": "pastibisa"
+    }
+    ```
 
-## Code of Conduct
+-   **Response (JSON):**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    ```json
+    {
+        "status": "success",
+        "message": "Login successful",
+        "data": {
+            "token": "token_autentikasi",
+            "admin": {
+                "id": "uuid_admin",
+                "name": "nama_admin",
+                "username": "username_admin",
+                "phone": "no_telepon_admin",
+                "email": "email_admin"
+            }
+        }
+    }
+    ```
 
-## Security Vulnerabilities
+    Atau
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    ```json
+    {
+        "status": "error",
+        "message": "Invalid login details"
+    }
+    ```
 
-## License
+-   **Screenshot Postman:**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    Sukses :
+
+    ![Berhasil Login](image.png)
+
+    Gagal :
+
+    ![Gagal Login](image-1.png)
+
+### Tugas 2: API Get All Data Divisi
+
+-   **Endpoint:** `/api/divisions`
+-   **Method:** `GET`
+-   **Deskripsi:** Membuat API untuk mengambil semua data divisi.
+-   **Kriteria:**
+    -   Endpoint hanya dapat diakses dengan autentikasi.
+    -   Mendukung filter berdasarkan nama divisi (query parameter `name`).
+    -   Data dummy sudah disediakan melalui seeder (`Mobile Apps, QA, Full Stack, Backend, Frontend, UI/UX Designer`).
+-   **Request (JSON):**
+
+    ```json
+    {
+        "name": "Frontend"
+    }
+    ```
+
+-   **Response (JSON):**
+
+    ```json
+    {
+        "status": "success",
+        "message": "Divisions retrieved successfully",
+        "data": {
+            "divisions": [
+                {
+                    "id": "uuid_divisi",
+                    "name": "nama_divisi"
+                },
+                {
+                    "id": "uuid_divisi",
+                    "name": "nama_divisi"
+                }
+            ]
+        },
+        "pagination": {
+            "total": 6,
+            "per_page": 10,
+            "current_page": 1,
+            "last_page": 1,
+            "from": 1,
+            "to": 6
+        }
+    }
+    ```
+
+-   **Screenshot Postman:**
+
+    Sukses :
+
+    ![Sukses Get Division](image-2.png)
+
+    Sukses filter by name :
+
+    ![Sukses Filter Division](image-13.png)
+
+### Tugas 3: API Get All Data Karyawan
+
+-   **Endpoint:** `/api/employees`
+-   **Method:** `GET`
+-   **Deskripsi:** Membuat API untuk mengambil semua data karyawan.
+-   **Kriteria:**
+    -   Endpoint hanya dapat diakses dengan autentikasi.
+    -   Mendukung filter berdasarkan nama karyawan (query parameter `name`).
+    -   Mendukung filter berdasarkan ID divisi (query parameter `division_id`).
+-   **Request (JSON):**
+
+    ```json
+    {
+        "name": "Nama Pegawai Dua",
+        "division_id": "uuid_divisi"
+    }
+    ```
+
+-   **Response (JSON):**
+
+    ```json
+    {
+        "status": "success",
+        "message": "Employees retrieved successfully",
+        "data": {
+            "employees": [
+                {
+                    "id": "uuid_pegawai",
+                    "image": "url_foto_pegawai",
+                    "name": "nama_pegawai",
+                    "phone": "no_telepon_pegawai",
+                    "division": {
+                        "id": "uuid_divisi",
+                        "name": "nama_divisi"
+                    },
+                    "position": "jabatan_pegawai"
+                },
+                {
+                    "id": "uuid_pegawai",
+                    "image": "url_foto_pegawai",
+                    "name": "nama_pegawai",
+                    "phone": "no_telepon_pegawai",
+                    "division": {
+                        "id": "uuid_divisi",
+                        "name": "nama_divisi"
+                    },
+                    "position": "jabatan_pegawai"
+                }
+            ]
+        },
+        "pagination": {
+            "total": 33,
+            "per_page": 7,
+            "current_page": 1,
+            "last_page": 5,
+            "from": 1,
+            "to": 7
+        }
+    }
+    ```
+
+-   **Screenshot Postman:**
+
+    Sukses :
+
+    ![Sukses Get Employee](image-3.png)
+
+    Sukses Filter Name "Lima" :
+
+    ![Sukses Get Employee Filtered Name](image-4.png)
+
+    Sukses Filter Division :
+
+    ![Sukses Get Employee Filtered Division](image-5.png)
+
+### Tugas 4: API Create Data Karyawan
+
+-   **Endpoint:** `/api/employees`
+-   **Method:** `POST`
+-   **Deskripsi:** Membuat API untuk menambahkan data karyawan baru.
+-   **Kriteria:**
+    -   Endpoint hanya dapat diakses dengan autentikasi.
+-   **Request (JSON):**
+
+    ```json
+    {
+        "image": "file_foto_pegawai",
+        "name": "nama_pegawai",
+        "phone": "no_telepon_pegawai",
+        "division_id": "uuid_divisi",
+        "position": "jabatan_pegawai"
+    }
+    ```
+
+-   **Response (JSON):**
+
+    ```json
+    {
+        "status": "success",
+        "message": "Employee created successfully"
+    }
+    ```
+
+    atau
+
+    ```json
+    {
+        "status": "error",
+        "message": "Validation error",
+        "errors": {
+            "name": [
+            "The name field is required."
+            ],
+            "phone": [
+            "The phone field is required."
+            ],
+            "position": [
+            "The position field is required."
+            ],
+            "division_id": [
+            "The division id field is required."
+            ]
+        }
+    }
+    ```
+
+-   **Screenshot Postman:**
+
+    Sukses :
+
+    ![Sukses Create Employee](image-6.png)
+
+    Gagal Validasi :
+
+    ![Gagal Create Employee](image-7.png)
+
+### Tugas 5: API Update Data Karyawan
+
+-   **Endpoint:** `/api/employees/{employee}`
+-   **Method:** `PUT`
+-   **Deskripsi:** Membuat API untuk memperbarui data karyawan.
+-   **Kriteria:**
+    -   Endpoint hanya dapat diakses dengan autentikasi.
+    -   `{employee}` pada endpoint merupakan `uuid` dari data karyawan yang ingin diupdate
+-   **Request (JSON):**
+
+    ```json
+    {
+        "image": "file_foto_pegawai",
+        "name": "nama_pegawai_baru",
+        "phone": "no_telepon_pegawai_baru",
+        "division_id": "uuid_divisi_baru",
+        "position": "jabatan_pegawai_baru"
+    }
+    ```
+
+-   **Response (JSON):**
+
+    ```json
+    {
+        "status": "success",
+        "message": "Employee updated successfully"
+    }
+    ```
+
+    atau
+
+    ```json
+    {
+        "status": "error",
+        "message": "Validation error",
+        "errors": {
+            "name": [
+            "The name field is required."
+            ],
+            "phone": [
+            "The phone field is required."
+            ],
+            "position": [
+            "The position field is required."
+            ],
+            "division_id": [
+            "The division id field is required."
+            ]
+        }
+    }
+    ```
+
+-   **Screenshot Postman:**
+
+    Sukses :
+
+    ![Sukses Update Employee](image-8.png)
+
+    Gagal Validasi :
+
+    ![Gagal Update Employee](image-9.png)
+
+### Tugas 6: API Delete Data Karyawan
+
+-   **Endpoint:** `/api/employees/{employee}`
+-   **Method:** `DELETE`
+-   **Deskripsi:** Membuat API untuk menghapus data karyawan.
+-   **Kriteria:**
+    -   Endpoint hanya dapat diakses dengan autentikasi.
+    -   `{employee}` pada endpoint merupakan `uuid` dari data karyawan yang ingin dihapus
+-   **Response (JSON):**
+
+    ```json
+    {
+        "status": "success",
+        "message": "Employee deleted successfully"
+    }
+    ```
+
+    atau
+
+    ```json
+    {
+        "status": "error",
+        "message": "Employee not found"
+    }
+    ```
+
+-   **Screenshot Postman:**
+
+    Sukses :
+
+    ![Sukses Delete Employee](image-10.png)
+
+    Gagal setelah dihapus :
+
+    ![Gagal Delete Employee](image-11.png)
+
+### Tugas 7: API Logout
+
+-   **Endpoint:** `/api/logout`
+-   **Method:** `POST`
+-   **Deskripsi:** Membuat API untuk logout.
+-   **Kriteria:**
+    -   Endpoint hanya dapat diakses dengan autentikasi.
+-   **Response (JSON):**
+
+    ```json
+    {
+        "status": "success",
+        "message": "Logged out successfully"
+    }
+    ```
+
+-   **Screenshot Postman:**
+
+    ![Sukses Logout](image-12.png)
