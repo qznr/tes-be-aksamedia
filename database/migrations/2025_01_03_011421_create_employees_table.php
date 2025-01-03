@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('image')->nullable();
+            $table->string('image')->nullable(); // Store only the file path (nullable)
             $table->string('name');
             $table->string('phone');
             $table->string('position');
@@ -26,7 +26,6 @@ return new class extends Migration
             $table->uuid('id')->default(Str::uuid())->change();
         });
     }
-
 
     /**
      * Reverse the migrations.
